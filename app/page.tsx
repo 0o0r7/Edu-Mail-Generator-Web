@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Zap, User, BookOpen } from 'lucide-react';
 
 interface GeneratedEmail {
   email: string;
@@ -14,7 +13,6 @@ export default function HomePage() {
   const [selectedCollege, setSelectedCollege] = useState('');
   const [loading, setLoading] = useState(false);
   const [generatedEmails, setGeneratedEmails] = useState<GeneratedEmail[]>([]);
-  const [showBenefits] = useState(true);
 
   const colleges = [
     'Harvard University',
@@ -26,12 +24,12 @@ export default function HomePage() {
   ];
 
   const benefits = [
-    { title: 'Spotify 50% Off', icon: '🎵' },
-    { title: 'Apple Music Discount', icon: '🎧' },
-    { title: 'Free AWS Credits', icon: '☁️' },
-    { title: 'Adobe CC Discount', icon: '🎨' },
-    { title: 'Free Amazon Prime', icon: '📦' },
-    { title: 'Microsoft Office Free', icon: '📄' },
+    { title: 'Spotify 50% Off', emoji: '🎵' },
+    { title: 'Apple Music Discount', emoji: '🎧' },
+    { title: 'Free AWS Credits', emoji: '☁️' },
+    { title: 'Adobe CC Discount', emoji: '🎨' },
+    { title: 'Free Amazon Prime', emoji: '📦' },
+    { title: 'Microsoft Office Free', emoji: '📄' },
   ];
 
   const handleGenerateEmail = async () => {
@@ -41,7 +39,6 @@ export default function HomePage() {
     }
 
     setLoading(true);
-    // Simulate API call
     setTimeout(() => {
       const newEmail: GeneratedEmail = {
         email: `user_${Math.random().toString(36).substr(2, 9)}@${selectedCollege.toLowerCase().replace(/\s+/g, '')}.edu`,
@@ -60,8 +57,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Mail className="w-8 h-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-blue-600">Edu-Mail Generator</h1>
+              <h1 className="text-2xl font-bold text-blue-600">✉️ Edu-Mail Generator</h1>
             </div>
             <p className="text-sm text-gray-600">Generate Free Educational Emails</p>
           </div>
@@ -78,11 +74,8 @@ export default function HomePage() {
                 <p className="text-gray-600">Select a college and generate a free educational email account</p>
               </div>
 
-              {/* College Selection */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select College/University
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Select College/University</label>
                 <select
                   value={selectedCollege}
                   onChange={(e) => setSelectedCollege(e.target.value)}
@@ -97,35 +90,28 @@ export default function HomePage() {
                 </select>
               </div>
 
-              {/* Generate Button */}
               <button
                 onClick={handleGenerateEmail}
                 disabled={loading}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                <Zap className="w-5 h-5" />
-                {loading ? 'Generating...' : 'Generate Email'}
+                {loading ? '⏳ Generating...' : '⚡ Generate Email'}
               </button>
             </div>
           </div>
 
           {/* Benefits Sidebar */}
-          {showBenefits && (
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-600" />
-                Student Benefits
-              </h3>
-              <div className="space-y-3">
-                {benefits.map((benefit) => (
-                  <div key={benefit.title} className="flex items-center gap-3 p-3 bg-blue-50 rounded">
-                    <span className="text-xl">{benefit.icon}</span>
-                    <span className="text-sm font-medium text-gray-700">{benefit.title}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Student Benefits</h3>
+            <div className="space-y-3">
+              {benefits.map((benefit) => (
+                <div key={benefit.title} className="flex items-center gap-3 p-3 bg-blue-50 rounded">
+                  <span className="text-xl">{benefit.emoji}</span>
+                  <span className="text-sm font-medium text-gray-700">{benefit.title}</span>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
 
         {/* Generated Emails List */}
